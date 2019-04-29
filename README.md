@@ -27,7 +27,7 @@ Add the service provider to `config/app.php`:
 // config/app.php
 'providers' => [
     ...
-    NotificationChannels\Plivo\PlivoServiceProvider::class,
+    Pedrommone\ChatAPINotificationChannel\ChatAPIChannelServiceProvider::class,
 ],
 ```
 
