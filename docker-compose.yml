@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  app:
+    image: ambientum/php:7.3
+    container_name: chat-api-notification-channel
+    command: php -v
+    volumes:
+      - .:/var/www/app
