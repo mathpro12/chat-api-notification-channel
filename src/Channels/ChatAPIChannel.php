@@ -4,6 +4,7 @@ namespace Pedrommone\ChatAPINotificationChannel\Channels;
 
 use Illuminate\Notifications\Notification;
 use Pedrommone\ChatAPI\Client;
+use Pedrommone\ChatAPINotificationChannel\Exceptions\CouldNotHandleTelephoneTargetException;
 
 class ChatAPIChannel
 {
@@ -14,11 +15,20 @@ class ChatAPIChannel
         $this->client = $client;
     }
 
-    public function send(WhatsAppMessage $notifiable, Notification $notification)
+    public function send($notifiable, Notification $notification)
     {
         $this->client->messages()->send([
-            'phone' => $notifiable->telephone,
-            'body' => $notifiable->message,
+            'phone' => $this->getTelephoneTarget($notifiable),
+            'body' => $notification->toChatAPI($notifiable)->content,
         ]);
+    }
+
+    protected function getTelephoneTarget($notifiable): string
+    {
+        if ($notifiable->routeNotificationFor('ChatAPI')) {
+            return $notifiable->routeNotificationFor('ChatAPI');
+        }
+
+        throw new CouldNotHandleTelephoneTargetException();
     }
 }
