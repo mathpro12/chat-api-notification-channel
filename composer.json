@@ -1,0 +1,35 @@
+{
+    "name": "pedrommone/chat-api-notification-channel",
+    "description": "ChatAPI notification channel for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pedro Maia",
+            "email": "pedrommone@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.0",
+        "illuminate/notifications": "~5.8.0|~5.9.0",
+        "pedrommone/php-chat-api-client": "dev-master"
+    },
+    "require-dev": {
+        "vlucas/phpdotenv": "^3.3",
+        "laravel/framework": "^5.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pedrommone\\ChatAPINotificationChannel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pedrommone\\ChatAPINotificationChannel\\ChatAPIChannelServiceProvider"
+            ]
+        }
+    }
+}
