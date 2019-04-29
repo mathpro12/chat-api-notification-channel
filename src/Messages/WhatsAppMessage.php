@@ -4,19 +4,11 @@ namespace Pedrommone\ChatAPINotificationChannel\Channels;
 
 class WhatsAppMessage
 {
-    public $message;
-    public $telephone;
+    public $content;
 
-    public function message(string $message): self
+    public function content(string $content): self
     {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    public function telephone(string $telephone): self
-    {
-        $this->telephone = $telephone;
+        $this->content = $content;
 
         return $this;
     }
