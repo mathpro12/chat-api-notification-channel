@@ -25,6 +25,10 @@ class ChatAPIChannel
 
     protected function getTelephoneTarget($notifiable): string
     {
+        if ($notifiable->routeNotificationFor(ChatAPIChannel::class)) {
+            return $notifiable->routeNotificationFor(ChatAPIChannel::class);
+        }
+
         if ($notifiable->routeNotificationFor('ChatAPI')) {
             return $notifiable->routeNotificationFor('ChatAPI');
         }
