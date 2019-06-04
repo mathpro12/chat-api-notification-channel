@@ -17,10 +17,23 @@ class ChatAPIChannel
 
     public function send($notifiable, Notification $notification)
     {
+        $context = $notification->toChatAPI($notifiable);
+
+        if (!is_null($context->instanceId) && !is_null($context->token)) {
+            $this->swapCredentials($context->instanceId, $context->token);
+        }
+
         $this->client->messages()->send([
             'phone' => $this->getTelephoneTarget($notifiable),
-            'body' => $notification->toChatAPI($notifiable)->content,
+            'body' => $context->content,
         ]);
+    }
+
+    protected function swapCredentials(string $instanceId, string $token): self
+    {
+        $this->client = $this->client->setCredentials($instanceId, $token);
+
+        return $this;
     }
 
     protected function getTelephoneTarget($notifiable): string

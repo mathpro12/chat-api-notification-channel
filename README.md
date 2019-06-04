@@ -80,6 +80,7 @@ public function routeNotificationForChatAPI()
 ### Available Message methods
 
 * `content()` - (string), WhatsApp notification body
+* `credentials()` - (string), (string), If you want to change the credentials during runtime, you declare the new credentials using this method
 
 ## Changelog
 
