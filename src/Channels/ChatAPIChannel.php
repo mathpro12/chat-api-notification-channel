@@ -24,7 +24,7 @@ class ChatAPIChannel
         }
 
         $this->client->messages()->send([
-            'phone' => $this->getTelephoneTarget($notifiable),
+            'phone' => $this->getTelephoneTarget($notifiable, $notification),
             'body' => $context->content,
         ]);
     }
@@ -36,14 +36,14 @@ class ChatAPIChannel
         return $this;
     }
 
-    protected function getTelephoneTarget($notifiable): string
+    protected function getTelephoneTarget($notifiable, Notification $notification): string
     {
-        if ($notifiable->routeNotificationFor(ChatAPIChannel::class)) {
-            return $notifiable->routeNotificationFor(ChatAPIChannel::class);
+        if ($notifiable->routeNotificationFor(ChatAPIChannel::class, $notification)) {
+            return $notifiable->routeNotificationFor(ChatAPIChannel::class, $notification);
         }
 
-        if ($notifiable->routeNotificationFor('ChatAPI')) {
-            return $notifiable->routeNotificationFor('ChatAPI');
+        if ($notifiable->routeNotificationFor('ChatAPI', $notification)) {
+            return $notifiable->routeNotificationFor('ChatAPI', $notification);
         }
 
         throw new CouldNotHandleTelephoneTargetException();
