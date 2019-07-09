@@ -20,7 +20,7 @@ class ChatAPIChannel
     public function send($notifiable, Notification $notification)
     {
         $context = $notification->toChatAPI($notifiable);
-        $target = $notifiable->routeNotificationFor(ChatAPIChannel::class, $notification);
+        $target = $this->getTelephoneTarget($notifiable, $notification);
 
         if (!is_null($context->instanceId) && !is_null($context->token)) {
             $this->swapCredentials($context->instanceId, $context->token);
@@ -43,5 +43,18 @@ class ChatAPIChannel
         $this->client = $this->client->setCredentials($instanceId, $token);
 
         return $this;
+    }
+
+    protected function getTelephoneTarget($notifiable, Notification $notification): ?string
+    {
+        if ($notifiable->routeNotificationFor(ChatAPIChannel::class, $notification)) {
+            return $notifiable->routeNotificationFor(ChatAPIChannel::class, $notification);
+        }
+
+        if ($notifiable->routeNotificationFor('ChatAPI', $notification)) {
+            return $notifiable->routeNotificationFor('ChatAPI', $notification);
+        }
+
+        return null;
     }
 }
