@@ -14,7 +14,6 @@ Fix anon notifications (#5)
 ### Added
 - Ability to swap credentials during runtime
 
-
 ## 0.0.4 - 2019-07-09
 ### Changed
 - Allow usage of empty telephone numbers
