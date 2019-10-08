@@ -65,7 +65,7 @@ public function toChatAPI($notifiable)
     return (new WhatsAppMessage())
         ->content('This is a WhatsApp message via ChatAPI using Laravel Notifications!');
 }
-```  
+```
 
 Add a `routeNotificationForChatAPI` method to your Notifiable model to return the phone number:  
 
@@ -75,12 +75,25 @@ public function routeNotificationForChatAPI()
     // Country code, area code and number without symbols or spaces
     return preg_replace('/\D+/', '', $this->phone_number);
 }
-```    
+```
 
 ### Available Message methods
 
 * `content()` - (string), WhatsApp notification body
 * `credentials()` - (string), (string), If you want to change the credentials during runtime, you declare the new credentials using this method
+
+### Using `NotificationSent` Event
+
+If you want to use the `NotificationSent` provided by Laravel, in `response` field you will get the data returned from `ChatAPI` API. 
+
+```
+    reponse: {
+        "sent": true,
+        "message": "Sent to 123456789@c.us",
+        "id": "true_123456789@c.us_12345ABCDE",
+        "queueNumber": 1234,
+    }
+```
 
 ## Changelog
 
