@@ -87,7 +87,7 @@ public function routeNotificationForChatAPI()
 If you want to use the `NotificationSent` provided by Laravel, in `response` field you will get the data returned from `ChatAPI` API. 
 
 ```
-    reponse: {
+    response: {
         "sent": true,
         "message": "Sent to 123456789@c.us",
         "id": "true_123456789@c.us_12345ABCDE",
