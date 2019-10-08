@@ -32,7 +32,7 @@ class ChatAPIChannel
             return false;
         }
 
-        $this->client->messages()->send([
+        return $this->client->messages()->send([
             'phone' => $target,
             'body' => $context->content,
         ]);
